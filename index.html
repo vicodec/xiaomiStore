@@ -1,7 +1,4 @@
-<?php
-require_once __DIR__.'/backend/conexion.php';
-$categoriasMenu=[];try{$categoriasMenu=$pdo->query("SELECT DISTINCT categoria FROM productos WHERE activo=1 AND categoria IS NOT NULL AND TRIM(categoria)<>'' ORDER BY categoria")->fetchAll(PDO::FETCH_COLUMN);}catch(Throwable $e){}
-?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
