@@ -1,0 +1,18 @@
+REPARACIÓN DE IMÁGENES - XIAOMI STORE AREQUIPA
+
+Cambios incluidos:
+- Se conserva el valor del campo productos.imagen tal como está guardado en MySQL. No se modifican ni sustituyen los enlaces existentes.
+- El catálogo de inicio ahora intenta usar la imagen guardada en MySQL y, si está vacía o el servidor externo no responde, recupera la imagen HTML original del mismo producto cuando existe.
+- Catálogo y ficha individual muestran una imagen de respaldo cuando el enlace no se puede cargar.
+- Se agregó en Administración > Productos un campo para pegar el enlace directo (HTTP/HTTPS) de la imagen, además de la opción de subir un archivo.
+- Al editar un producto, el enlace actual se conserva si no se escribe uno nuevo ni se sube otro archivo. Si se sube un archivo, este tiene prioridad.
+- La vista previa ayuda a comprobar el enlace antes de guardar.
+
+Instalación:
+1. Haz una copia de seguridad de la carpeta actual.
+2. Reemplaza los archivos del proyecto con esta versión.
+3. No se requiere migración SQL ni modificar la base de datos.
+4. Recarga el sitio con Ctrl + F5 para limpiar la caché del navegador.
+
+Nota:
+Algunos servidores de imágenes externos bloquean la visualización desde otras páginas (hotlink), eliminan archivos o requieren cookies. Si un enlace externo sigue sin cargar, usa un enlace directo público o descarga la imagen y súbela desde el panel.

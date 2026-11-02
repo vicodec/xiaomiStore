@@ -1,0 +1,59 @@
+XIAOMI STORE AREQUIPA - ENTREGA DE AMPLIACION
+==============================================
+
+Se conserva el proyecto existente y se agregan módulos comerciales.
+
+NUEVO EN ESTA ENTREGA
+---------------------
+1. Panel admin/gestion.php:
+   - Gestión de categorías (alta y activar/desactivar).
+   - Cupones (crear, vigencia, monto/porcentaje, mínimo, límite de usos y activar/desactivar).
+   - Tarifas de envío por provincia/distrito, con costo y tiempo estimado.
+   - Configuración comercial: nombre, WhatsApp, IGV, datos de Yape/Plin y transferencia.
+   - Notificaciones internas para clientes o generales.
+   - Preguntas frecuentes para chatbot (crear y activar/desactivar).
+   - Analítica de eventos de los últimos 30 días.
+   - Auditoría de operaciones administrativas.
+2. Fichas técnicas ampliadas: admin/fichas.php (SKU, marca, precio anterior, garantía, especificaciones JSON, galería y destacado).
+3. Catálogo dinámico: catalogo.php (búsqueda, categoría, rango de precios y ordenamiento).
+4. Detalle individual: producto.php?id=ID, con agregar al carrito.
+5. Comparador de 2 a 3 productos: comparar.php.
+6. Chatbot de reglas y palabras clave: widget flotante y backend/chatbot.php.
+7. Analítica: page_view, search, product_view, add_to_cart, checkout_start, order_created y whatsapp_click.
+8. Cupones integrados al checkout. El backend valida de nuevo el cupón y calcula el descuento al registrar el pedido.
+9. Tarifas de envío cargadas desde MySQL y administrables desde el panel.
+10. Datos de pago manuales configurables; aparecen al seleccionar Yape/Plin o transferencia.
+11. Centro de notificaciones del cliente: notificaciones.php.
+12. Rediseño responsive adicional en styles.css.
+13. Corrección de búsqueda para que también filtre tarjetas cargadas dinámicamente desde MySQL.
+14. Al confirmar una tarifa de envío por cotizar, el total respeta el descuento del cupón.
+
+INSTALACIÓN
+-----------
+1. Respalda la carpeta del proyecto y exporta la base de datos.
+2. Reemplaza los archivos del proyecto por esta versión (o descomprime en una carpeta nueva y renómbrala xiaomiStore).
+3. En phpMyAdmin selecciona mi_store_arequipa.
+4. Ejecuta UNA SOLA VEZ database/migracion_modulos_comerciales.sql.
+5. No vuelvas a importar el SQL inicial ni repitas esta migración: contiene ALTER TABLE de una sola ejecución.
+6. Inicia sesión como administrador y abre:
+   http://localhost/xiaomiStore/admin/
+7. Entra a Módulos comerciales > Configuración y completa los datos reales de contacto y pago.
+8. Abre Módulos comerciales > Tarifas de envío y revisa los costos y cobertura reales.
+9. En Módulos comerciales > Chatbot registra las respuestas comerciales correctas.
+10. En Fichas técnicas completa la información de cada producto.
+
+LIMITACIONES IMPORTANTES
+------------------------
+- Yape, Plin y transferencia se verifican manualmente mediante comprobante. No existe API bancaria ni cobro automático.
+- Efectivo contra entrega queda sujeto a coordinación y cobertura.
+- No se integra pasarela de tarjetas: para ello se necesitan cuenta comercial, credenciales sandbox/producción y documentación del proveedor (por ejemplo, Culqi o Mercado Pago).
+- El chatbot es de reglas y palabras clave, no IA generativa. Para conectarlo a un modelo se necesita proveedor, API key y presupuesto.
+- Las notificaciones son internas; no se envían automáticamente por email, SMS o WhatsApp.
+- Las estadísticas son eventos básicos del sitio, no un sistema avanzado de atribución ni analítica publicitaria.
+- El sistema no emite comprobantes electrónicos SUNAT.
+- Los datos de contacto, números de pago, tarifas, garantía y condiciones deben ser confirmados por el negocio antes de publicar.
+- Se requiere ejecutar pruebas integrales en tu XAMPP/MySQL real. La revisión realizada valida sintaxis PHP y JavaScript, pero no sustituye pruebas de base de datos, seguridad, concurrencia ni pasarela de pago.
+
+SEGURIDAD ANTES DE PUBLICAR
+---------------------------
+Configura HTTPS, credenciales MySQL limitadas, protección CSRF también en formularios de cliente, política de sesiones segura, límites de intentos de login, copias de seguridad y revisión de permisos de archivos.

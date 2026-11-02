@@ -1,0 +1,29 @@
+REPARACIÓN: ERROR "Unexpected token '<'" AL CERRAR SESIÓN
+
+CAUSA
+El archivo backend/logout.php anterior llamaba a setcookie() con ocho argumentos.
+En PHP 8 esto produce un error fatal. PHP devuelve una página HTML con <br /><b>
+antes de que JavaScript pueda leer JSON, por eso aparece "Unexpected token '<'".
+
+SOLUCIÓN INCLUIDA
+- backend/logout.php ahora elimina la cookie pasando las opciones en un array.
+- La petición fetch devuelve JSON válido.
+- El cierre de sesión desde los enlaces del panel redirige a la tienda.
+- js/controllers/auth.controller.js declara explícitamente credentials: same-origin
+  en el inicio de sesión para conservar la cookie PHP.
+
+INSTALACIÓN
+1. Haz una copia de seguridad de tu carpeta xiaomiStore actual.
+2. Descomprime este ZIP.
+3. Copia la carpeta xiaomiStore sobre tu instalación en C:\\xampp\\htdocs\\
+   y acepta reemplazar los archivos cuando Windows lo pregunte.
+   Si prefieres hacerlo manualmente, reemplaza únicamente:
+   - xiaomiStore/backend/logout.php
+   - xiaomiStore/js/controllers/auth.controller.js
+4. No importes de nuevo el SQL ni borres tu base de datos.
+5. Reinicia Apache desde XAMPP y prueba iniciar sesión y cerrar sesión.
+
+NOTA
+Esta corrección resuelve el error PHP del cierre de sesión. Si el panel todavía
+indica que la cuenta no tiene rol admin después de iniciar sesión correctamente,
+se debe revisar el valor real de usuarios.rol y la sesión PHP en una prueba aparte.

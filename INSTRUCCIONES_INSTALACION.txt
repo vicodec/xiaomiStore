@@ -1,0 +1,98 @@
+MI STORE AREQUIPA - INSTALACION LOCAL
+====================================
+
+1. COPIAR EL PROYECTO
+- Descomprime la carpeta xiaomiStore dentro de C:\xampp\htdocs\
+- Debe quedar: C:\xampp\htdocs\xiaomiStore\index.php
+
+2. INICIAR XAMPP
+- Abre XAMPP Control Panel.
+- Inicia Apache y MySQL.
+
+3. CREAR LA BASE DE DATOS
+- Entra a http://localhost/phpmyadmin
+- Selecciona Importar.
+- Elige database/mi_store_arequipa.sql y pulsa Continuar.
+- Esto crea la base mi_store_arequipa, tablas y 20 productos iniciales.
+
+4. CONFIGURAR CONEXION
+- Abre backend/conexion.php.
+- Para XAMPP estándar deja host=localhost, usuario=root y contraseña vacía.
+- Si tu MySQL tiene contraseña, colócala en $password.
+
+5. ABRIR LA TIENDA
+- Visita http://localhost/xiaomiStore/
+
+6. CREAR ADMINISTRADOR
+- Registra una cuenta desde la tienda.
+- En phpMyAdmin abre mi_store_arequipa > SQL y ejecuta, cambiando el correo:
+  UPDATE usuarios SET rol='admin' WHERE email='tu-correo@ejemplo.com';
+- Inicia sesión con esa cuenta y abre:
+  http://localhost/xiaomiStore/admin/
+
+IMPORTANTE SOBRE ESTA ENTREGA
+- Se conserva el catálogo y la interfaz existente.
+- Se reforzaron conexión, registro e inicio de sesión, y se agregó cierre de sesión.
+- Se añadió el esquema SQL, productos de inicio, registro de pedidos con validación de stock y un panel administrativo inicial.
+- El checkout de la tienda registra pedidos directamente en MySQL; requiere que el cliente inicie sesión y que el catálogo esté conectado a la base de datos para usar IDs reales de productos.
+- Yape/Plin y transferencia quedan como métodos declarativos: no se procesa ni verifica el pago automáticamente. Se confirma manualmente con la tienda.
+- El panel es una primera versión de lectura. Aún faltan pantallas CRUD, actualización de estados, comprobantes y pasarela de pago.
+- Antes de publicar en internet, configurar HTTPS, credenciales seguras, protección CSRF, permisos y copias de seguridad.
+
+7. GESTIONAR PRODUCTOS DESDE EL ADMIN
+- Inicia sesión con la cuenta que tenga rol admin.
+- Abre http://localhost/xiaomiStore/admin/
+- Pulsa "Gestionar productos" o visita http://localhost/xiaomiStore/admin/productos.php
+- Desde allí puedes crear, editar, cambiar precio, descripción, categoría, stock, imagen y activar/desactivar productos.
+- Las imágenes aceptadas son JPG, PNG y WEBP, hasta 4 MB. Se guardan en uploads/productos/.
+- Al desactivar un producto, se oculta sin borrar su historial de pedidos.
+
+8. CIERRE DE SESIÓN
+- Desde el panel, "Cerrar sesión" destruye la sesión PHP y redirige a la tienda.
+- Desde el botón de cuenta de la tienda, el cierre se realiza por petición al servidor y luego limpia la sesión local.
+
+NOTA DE SEGURIDAD
+- No concedas el rol admin a usuarios desconocidos.
+- En producción configura contraseñas fuertes de MySQL, HTTPS y límites/permisos de carga de archivos.
+
+9. ACTIVAR LAS 7 FUNCIONES NUEVAS (IMPORTANTE)
+- Haz una copia de seguridad de la base de datos desde phpMyAdmin > Exportar.
+- En phpMyAdmin selecciona mi_store_arequipa > SQL.
+- Importa/ejecuta el archivo database/migracion_7_funciones.sql.
+- No vuelvas a importar mi_store_arequipa.sql sobre una base que ya contiene datos; usa solo la migración indicada.
+- Mantén la carpeta xiaomiStore completa dentro de htdocs.
+
+10. NUEVAS FUNCIONES
+- Pedidos: admin/pedidos.php permite ver pedidos, detalle, actualizar estados y cancelar (al cancelar repone stock).
+- Reportes: admin/reportes.php muestra ventas mensuales, ticket promedio y productos más vendidos; permite imprimir/guardar PDF.
+- Perfil del cliente: perfil.php permite editar datos, cambiar contraseña, revisar pedidos y enviar reseñas.
+- Inventario: admin/inventario.php muestra stock bajo e historial de movimientos; los pedidos y cancelaciones registran movimientos.
+- Comprobantes: el cliente sube JPG/PNG/WEBP/PDF (máximo 5 MB) desde Mi cuenta; administración los revisa en Pedidos y puede verificar el pago.
+- Reseñas: el cliente puede reseñar productos incluidos en pedidos entregados; quedan pendientes hasta moderación en admin/resenas.php.
+- Clientes: admin/clientes.php lista clientes, pedidos y monto comprado.
+
+11. FLUJO DE COMPRA
+- El checkout ahora registra pedidos en MySQL y valida precio/stock en el servidor.
+- Es necesario iniciar sesión antes de comprar para que el pedido aparezca en Mi cuenta.
+- Después de registrar el pedido, el cliente vuelve a perfil.php para consultar el estado y subir el comprobante de Yape/Plin o transferencia.
+- Los pagos siguen siendo verificados manualmente; no existe conexión automática con Yape, Plin ni bancos.
+- Para ver reseñas, la tienda consulta el promedio de reseñas publicadas en la base de datos.
+
+12. VALIDACIÓN
+- Revisa que Apache y MySQL estén activos.
+- Comprueba que el usuario administrador conserve rol='admin'.
+- Si tu base de datos ya tiene pedidos y productos, la migración añade columnas/tablas sin borrar esos datos.
+
+
+13. CARRITO Y FAVORITOS VINCULADOS A LA CUENTA (NUEVO)
+- Haz una copia de seguridad de la base de datos desde phpMyAdmin > Exportar.
+- En phpMyAdmin selecciona mi_store_arequipa > SQL.
+- Ejecuta una sola vez el archivo database/migracion_carrito_favoritos.sql.
+- Esta migración crea las tablas carrito_usuario y favoritos_usuario; no borra usuarios, productos ni pedidos.
+- Inicia sesión desde la tienda. El carrito y los favoritos que tengas en este navegador se combinarán con los guardados en tu cuenta.
+- Desde ese momento, los cambios del carrito y favoritos se sincronizan con MySQL. Al iniciar sesión en otro navegador o dispositivo, se cargarán los datos guardados en tu cuenta.
+- Para que la sincronización funcione, utiliza productos cargados desde el catálogo de MySQL (con ID de producto).
+- Al cerrar sesión, los datos quedan guardados en la cuenta y se limpia la copia local del navegador para evitar mezclar cuentas.
+
+
+ACTUALIZACIÓN DE ESTA ENTREGA: Se conserva el diseño original de la tienda. Después de respaldar la base de datos, ejecutar una sola vez database/reparar_estados_pedidos_vacios.sql en mi_store_arequipa para corregir pedidos antiguos cuyo estado esté NULL o vacío. No vuelve a importar la base ni modifica el diseño. Las páginas politica-privacidad.php y terminos-servicio.php están enlazadas desde el pie de página.

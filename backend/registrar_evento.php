@@ -1,0 +1,5 @@
+<?php
+session_start();header('Content-Type: application/json; charset=utf-8');require_once __DIR__.'/conexion.php';
+$data=json_decode(file_get_contents('php://input'),true)??[];$event=preg_replace('/[^a-z0-9_\-]/i','',substr((string)($data['evento']??''),0,80));$page=substr((string)($data['pagina']??''),0,255);$product=isset($data['producto_id'])?(int)$data['producto_id']:null;$allowed=['page_view','search','product_view','add_to_cart','checkout_start','order_created','whatsapp_click'];
+if(!in_array($event,$allowed,true)){http_response_code(422);echo json_encode(['success'=>false]);exit;}
+try{$json=json_encode($data['datos']??new stdClass(),JSON_UNESCAPED_UNICODE);$ip=$_SERVER['REMOTE_ADDR']??'';$hash=$ip?hash('sha256',$ip.'|mi-store-analytics-salt'):null;$q=$pdo->prepare('INSERT INTO eventos_analitica(usuario_id,evento,pagina,producto_id,datos,ip_hash) VALUES(?,?,?,?,?,?)');$q->execute([$_SESSION['usuario_id']??null,$event,$page,$product,$json,$hash]);echo json_encode(['success'=>true]);}catch(Throwable $e){http_response_code(500);echo json_encode(['success'=>false]);}

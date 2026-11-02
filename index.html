@@ -1,0 +1,663 @@
+<?php
+require_once __DIR__.'/backend/conexion.php';
+$categoriasMenu=[];try{$categoriasMenu=$pdo->query("SELECT DISTINCT categoria FROM productos WHERE activo=1 AND categoria IS NOT NULL AND TRIM(categoria)<>'' ORDER BY categoria")->fetchAll(PDO::FETCH_COLUMN);}catch(Throwable $e){}
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi Store Arequipa | Tienda Xiaomi Perú</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <div class="contenedor barra">
+    <a href="#" class="logo"><span class="mi">mi</span> Store Arequipa</a>
+    
+    <nav>
+      <ul>
+        <li class="menu-productos"><a href="catalogo.php">Productos <span aria-hidden="true">▾</span></a><ul class="submenu-productos"><li><a href="catalogo.php">Todos los productos</a></li><?php foreach($categoriasMenu as $categoriaMenu): ?><li><a href="catalogo.php?categoria=<?=rawurlencode($categoriaMenu)?>"><?=htmlspecialchars($categoriaMenu,ENT_QUOTES,'UTF-8')?></a></li><?php endforeach; ?></ul></li>
+        <li><a href="notificaciones.php">Notificaciones</a></li>
+      </ul>
+    </nav>
+
+    <div class="acciones-header">
+      <!-- Botón Favoritos -->
+      <button type="button" class="btn-abrir-favoritos" id="btnAbrirFavoritos" aria-label="Abrir lista de favoritos">
+        ❤️ <span id="wishlistCount" class="cart-count">0</span>
+      </button>
+
+      <!-- Botón del carrito -->
+      <a href="perfil.php" class="btn-cuenta" style="display:inline-block;margin-right:12px;color:inherit;text-decoration:none">Mi cuenta</a>
+      <button type="button" class="btn-abrir-carrito" id="btnAbrirCarrito" aria-label="Abrir carrito de compras">
+        🛒 <span id="cartCount" class="cart-count">0</span>
+      </button>
+
+      <!-- Botón de Autenticación -->
+      <button type="button" class="btn-header" id="btnAbrirAuth">
+        👤 <span id="textoUsuarioHeader">Iniciar Sesión</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="contenedor">
+    <h1>Tecnología Xiaomi en Arequipa</h1>
+    <p>Productos originales con garantía y envíos a toda la ciudad.</p>
+    
+    <!-- Buscador en el Hero -->
+    <div class="buscador-container">
+        <div class="buscador-wrapper">
+            <span class="buscador-icon">🔍</span>
+            <input type="text" id="inputBuscar" placeholder="Buscar celular, reloj, audífono..." aria-label="Buscar productos">
+        </div>
+    </div>
+
+    <a href="#celulares" class="btn-hero">Ver productos</a>
+  </div>
+</section>
+
+<main class="contenedor">
+
+  <div class="categorias">
+    <a class="cat" href="#celulares"><span class="ico">📱</span>Celulares</a>
+    <a class="cat" href="#audio"><span class="ico">🎧</span>Audio y Wearables</a>
+    <a class="cat" href="#hogar"><span class="ico">🏠</span>Hogar inteligente</a>
+    <a class="cat" href="#accesorios"><span class="ico">🔌</span>Accesorios</a>
+  </div>
+
+  <!-- CELULARES -->
+  <section class="seccion" id="celulares">
+    <h2>Celulares</h2>
+    <div class="grid">
+      <article class="card">
+        <img src="https://tienda.movistar.com.pe/media/catalog/product/cache/07b60579cf7aa09974599885aacbcf02/t/m/tmgpexiren13nes001_340x600_back.png" alt="Redmi Note 13">
+        <div class="info">
+          <h3>Redmi Note 13</h3>
+          <p class="desc">8GB + 256GB, pantalla AMOLED 120Hz, cámara 108MP.</p>
+          <div class="precio">S/ 799</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://oechsle.vteximg.com.br/arquivos/ids/16995531/image-842ebd3aa939436cb9d0beff34826ebb.jpg?v=638378732997630000" alt="Redmi 13C">
+        <div class="info">
+          <h3>Redmi 13C</h3>
+          <p class="desc">4GB + 128GB, batería 5000mAh, cámara 50MP.</p>
+          <div class="precio">S/ 429</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://storage.comprasmartphone.com/smartphones/poco-x6.png" alt="POCO X6 Pro">
+        <div class="info">
+          <h3>POCO X6 Pro</h3>
+          <p class="desc">8GB + 256GB, Dimensity 8300 Ultra, carga 67W.</p>
+          <div class="precio">S/ 1,199</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://gomaphone.com/wp-content/uploads/2025/07/ASSET_MMS_157644110-removebg-preview.png" alt="Xiaomi 14T">
+        <div class="info">
+          <h3>Xiaomi 14T</h3>
+          <p class="desc">12GB + 256GB, óptica Leica, pantalla 144Hz.</p>
+          <div class="precio">S/ 2,399</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://www.greentelcom.ph/wp-content/uploads/2024/04/website-template-2024-04-20T164841.685.png" alt="Redmi A3">
+        <div class="info">
+          <h3>Redmi A3</h3>
+          <p class="desc">3GB + 64GB, ideal como primer smartphone.</p>
+          <div class="precio">S/ 299</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- AUDIO Y WEARABLES -->
+  <section class="seccion" id="audio">
+    <h2>Audio y Wearables</h2>
+    <div class="grid">
+      <article class="card">
+        <img src="https://api.mistore-eg.com/storage/uploads/xiaomi-smart-band-8-graphite-black_8431-70ad4a02-e4cc-8dd9-b801-55eb817ee7c7-1696344180.png" alt="Xiaomi Smart Band 9">
+        <div class="info">
+          <h3>Xiaomi Smart Band 9</h3>
+          <p class="desc">Pantalla AMOLED, 150 modos deportivos, 21 días de batería.</p>
+          <div class="precio">S/ 189</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://xiaomistore.com.sv/wp-content/uploads/watch20620Lite20Black-300x300.webp" alt="Redmi Watch 5">
+        <div class="info">
+          <h3>Redmi Watch 5</h3>
+          <p class="desc">GPS integrado, llamadas Bluetooth, pantalla AMOLED.</p>
+          <div class="precio">S/ 349</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://telcmax.com/wp-content/uploads/2025/09/XIAOMI-REDMI-BUDS-6-LITE.webp" alt="Redmi Buds 6">
+        <div class="info">
+          <h3>Redmi Buds 6</h3>
+          <p class="desc">Cancelación de ruido activa, hasta 42 h con el estuche.</p>
+          <div class="precio">S/ 129</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://todoaplazo.com/images/products/0befad15-09a9-4e01-8f7c-909ffbbf0c3d-buds5pro-1.png" alt="Xiaomi Buds 5 Pro">
+        <div class="info">
+          <h3>Xiaomi Buds 5 Pro</h3>
+          <p class="desc">Audio de alta resolución y cancelación de ruido avanzada.</p>
+          <div class="precio">S/ 599</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://miamitechnologyusa.com/wp-content/uploads/2024/11/fee_786_587_png-1.webp" alt="Redmi Pad SE">
+        <div class="info">
+          <h3>Redmi Pad SE</h3>
+          <p class="desc">Tablet de 11", 4GB + 128GB, pantalla 90Hz, 4 parlantes.</p>
+          <div class="precio">S/ 549</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- HOGAR INTELIGENTE -->
+  <section class="seccion" id="hogar">
+    <h2>Hogar inteligente</h2>
+    <div class="grid">
+      <article class="card">
+        <img src="https://es.roborock.com/cdn/shop/t/26/assets/heros-e5-dual-gyroscopes-hei.png?v=55422349412487343131727149711" alt="Robot aspirador E5">
+        <div class="info">
+          <h3>Robot Vacuum E5</h3>
+          <p class="desc">Aspira y trapea, control desde la app Mi Home.</p>
+          <div class="precio">S/ 699</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://tuxiaomi.es/wp-content/uploads/2024/02/Xiaomi-Air-Fryer-6L-Main.png" alt="Freidora de aire inteligente">
+        <div class="info">
+          <h3>Smart Air Fryer 6L</h3>
+          <p class="desc">Freidora de aire con control por app y recetas.</p>
+          <div class="precio">S/ 389</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://i02.appmifile.com/356_item_pe/29/08/2025/328c5eb29e1f9a4d72a02590300eeda8.png" alt="Purificador de aire 4 Lite">
+        <div class="info">
+          <h3>Purificador de Aire 4 Lite</h3>
+          <p class="desc">Filtro HEPA, silencioso, para ambientes de hasta 43 m².</p>
+          <div class="precio">S/ 469</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://i02.appmifile.com/255_operator_sg/26/08/2022/ef37cc60ea796cb472101e2d75b2fb0e.png" alt="Cámara de seguridad C300">
+        <div class="info">
+          <h3>Cámara de Seguridad C300</h3>
+          <p class="desc">2K, visión nocturna, giro 360° y detección humana.</p>
+          <div class="precio">S/ 159</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://ssr.col.movistar.es/api/v3/get-pic/content/dam/movistar/estaticos/imagenes/dispositivos/xiaomi/tv/xiaomi-tv-a-2025-01.png" alt="Xiaomi TV A 43">
+        <div class="info">
+          <h3>Xiaomi TV A 43"</h3>
+          <p class="desc">Full HD, Google TV, Dolby Audio.</p>
+          <div class="precio">S/ 1,099</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ACCESORIOS -->
+  <section class="seccion" id="accesorios">
+    <h2>Accesorios y Movilidad</h2>
+    <div class="grid">
+      <article class="card">
+        <img src="https://www.greenlion.net/web/image/product.template/4215/image_1920?unique=28db89c" alt="Power Bank 20000 mAh">
+        <div class="info">
+          <h3>Power Bank 20000 mAh</h3>
+          <p class="desc">Carga rápida 22.5W, doble salida USB.</p>
+          <div class="precio">S/ 109</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://rokbucket.rokomari.io/ProductNew20190903/260X372/Charger_67W_Original_Eu_Mi_67_Watt_Charg-Xtreme-fa835-485701.png" alt="Cargador 67W">
+        <div class="info">
+          <h3>Cargador Turbo 67W</h3>
+          <p class="desc">Adaptador de pared con cable USB-C incluido.</p>
+          <div class="precio">S/ 89</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://www.powerplanetonline.com/cdnassets/products/97805/xiaomi_sound_party_negro_1_l_sf.webp" alt="Parlante Bluetooth">
+        <div class="info">
+          <h3>Parlante Bluetooth Portátil</h3>
+          <p class="desc">Sonido potente, resistente al agua, 13 h de batería.</p>
+          <div class="precio">S/ 149</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://tuxiaomi.es/wp-content/uploads/2022/08/Xiaomi-Electric-Scooter-4-Pro-patin.png" alt="Scooter eléctrico 4 Lite">
+        <div class="info">
+          <h3>Scooter Eléctrico 4 Lite</h3>
+          <p class="desc">Hasta 20 km de autonomía, plegable, 25 km/h.</p>
+          <div class="precio">S/ 1,499</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://212global.com/wp-content/uploads/2025/06/6812cd3395574af35af25ede_thumbnail-600x600.png" alt="Router AX3000">
+        <div class="info">
+          <h3>Router WiFi 6 AX3000</h3>
+          <p class="desc">Doble banda, cobertura amplia, configuración desde la app.</p>
+          <div class="precio">S/ 259</div>
+          <div class="acciones-producto">
+            <button type="button" class="btn btn-carrito">Agregar al carrito 🛒</button>
+            <div class="fila-secundaria">
+              <button type="button" class="btn btn-consultar-wsp" aria-label="Consultar este producto por WhatsApp">Consultar</button>
+              <button type="button" class="btn btn-favorito" aria-label="Agregar a favoritos">❤️</button>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="contenedor footer-grid">
+    <div>
+      <h4>Mi Store Arequipa</h4>
+      <p>Tienda especializada en productos Xiaomi originales, con garantía y soporte local.</p>
+    </div>
+    <div>
+      <h4>Enlaces</h4>
+      <ul>
+        <li class="menu-productos"><a href="catalogo.php">Productos <span aria-hidden="true">▾</span></a><ul class="submenu-productos"><li><a href="catalogo.php">Todos los productos</a></li><?php foreach($categoriasMenu as $categoriaMenu): ?><li><a href="catalogo.php?categoria=<?=rawurlencode($categoriaMenu)?>"><?=htmlspecialchars($categoriaMenu,ENT_QUOTES,'UTF-8')?></a></li><?php endforeach; ?></ul></li>
+        <li><a href="notificaciones.php">Notificaciones</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Atención al cliente</h4>
+      <ul>
+        <li><a href="#">Garantía y devoluciones</a></li><li><a href="politica-privacidad.php">Política de privacidad</a></li><li><a href="terminos-servicio.php">Términos de servicio</a></li>
+        <li><a href="#">Métodos de pago</a></li>
+        <li><a href="#">Envíos en Arequipa</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <ul>
+        <li>📍 Av. Ejemplo 123, Arequipa</li>
+        <li>📞 +51 900 000 000</li>
+        <li>✉️ ventas@mistorearequipa.pe</li>
+        <li>🕘 Lun a Sáb: 9:00 a.m. - 8:00 p.m.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="copy">© 2026 Mi Store Arequipa. Todos los derechos reservados.</div>
+</footer>
+
+<!-- MODAL DEL CARRITO Y CHECKOUT -->
+<div class="modal-overlay" id="carritoModal" aria-hidden="true">
+  <div class="modal-carrito" role="dialog" aria-modal="true" aria-labelledby="carritoTitulo">
+    <div class="modal-header">
+      <h2 id="carritoTitulo">🛒 Tu Carrito de Compras</h2>
+      <button type="button" class="cerrar-modal" id="cerrarCarrito" aria-label="Cerrar carrito">&times;</button>
+    </div>
+
+    <div class="carrito-contenido" id="carritoContenido"></div>
+
+    <div class="carrito-footer">
+      <div class="carrito-moneda">
+        <label for="carritoMoneda">Seleccionar Moneda:</label>
+        <select id="carritoMoneda" class="moneda">
+          <option value="PEN">Soles Peruanos (PEN)</option>
+          <option value="USD">Dólares (USD)</option>
+          <option value="EUR">Euros (EUR)</option>
+        </select>
+      </div>
+
+      <form id="formCheckout" class="form-checkout">
+        <h3>Datos para el envío (Arequipa)</h3>
+        
+        <div class="campo">
+          <input type="text" id="clienteNombre" placeholder="Nombre completo" required>
+        </div>
+
+        <div class="campo">
+          <input type="text" id="clienteDireccion" placeholder="Dirección exacta / Urbanización" required>
+        </div>
+
+        <div class="campo">
+          <label for="clienteProvincia" class="label-distrito">Provincia:</label>
+          <select id="clienteProvincia" class="moneda" required disabled>
+            <option value="" disabled selected>Selecciona tu provincia</option>
+            <option>Arequipa</option><option>Camaná</option><option>Caravelí</option><option>Castilla</option><option>Caylloma</option><option>Condesuyos</option><option>Islay</option><option>La Unión</option>
+          </select>
+          <label for="clienteDistrito" class="label-distrito">Distrito:</label>
+          <select id="clienteDistrito" class="moneda" required disabled>
+            <option value="" disabled selected>Primero selecciona una provincia</option>
+          </select>
+          <small id="avisoEnvioDistrito" class="texto-envio-info">Los distritos sin tarifa tendrán envío por cotizar. Espera la confirmación del costo antes de realizar el pago.</small>
+        </div>
+
+        <div class="campo">
+          <select id="clientePago" required class="moneda">
+            <option value="" disabled selected>Método de pago preferido</option>
+            <option value="Yape / Plin">Yape / Plin</option>
+            <option value="Transferencia BCP/Interbank">Transferencia bancaria</option>
+            <option value="Efectivo contra entrega">Efectivo contra entrega</option>
+          </select>
+          <small id="infoPagoCheckout" class="texto-envio-info">Selecciona un método para ver los datos de pago.</small>
+        </div>
+
+        <div class="campo"><label for="codigoCuponCheckout">Cupón de descuento (opcional)</label><div style="display:flex;gap:8px"><input id="codigoCuponCheckout" type="text" placeholder="Ej. XIAOMI10" autocomplete="off"><button type="button" class="btn" id="aplicarCupon">Aplicar</button></div><small id="estadoCupon"></small></div>
+        <div class="carrito-envio-detalle">
+          <span>Costo de envío:</span>
+          <strong id="textoCostoEnvio">S/ 0.00</strong>
+        </div>
+
+        <div class="carrito-total">
+          <span id="etiquetaTotalCheckout">Total a pagar:</span>
+          <strong id="carritoTotal">S/ 0.00</strong>
+        </div>
+
+        <div class="carrito-acciones">
+          <button type="button" class="btn btn-vaciar" id="vaciarCarrito">Vaciar</button>
+          <button type="submit" class="btn btn-whatsapp">Enviar Pedido a WhatsApp 📲</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DE FAVORITOS (Agregado para solucionar la vista de favoritos) -->
+<div class="modal-overlay" id="favoritosModal" aria-hidden="true">
+  <div class="modal-carrito" role="dialog" aria-modal="true" aria-labelledby="favoritosTitulo">
+    <div class="modal-header">
+      <h2 id="favoritosTitulo">❤️ Tus Productos Favoritos</h2>
+      <button type="button" class="cerrar-modal" id="cerrarFavoritos" aria-label="Cerrar favoritos">&times;</button>
+    </div>
+    <div class="carrito-contenido" id="favoritosContenido">
+      <!-- Los productos favoritos se renderizan dinámicamente aquí -->
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DE DETALLE DE PRODUCTO -->
+<div class="modal-overlay" id="modalDetalle">
+  <div class="modal-detalle-contenido">
+    <button type="button" class="cerrar-modal" id="cerrarDetalle">&times;</button>
+    
+    <div class="detalle-grid">
+      <div class="detalle-imagen">
+        <img id="detalleImg" src="" alt="Imagen del producto">
+      </div>
+      <div class="detalle-info">
+        <h2 id="detalleTitulo">Título del producto</h2>
+        <p class="detalle-precio" id="detallePrecio">S/ 0.00</p>
+        <p class="detalle-desc" id="detalleDesc">Descripción detallada del producto...</p>
+        
+        <!-- Bloque de Reseñas y Estrellas -->
+        <div class="detalle-reseñas">
+          <div class="estrellas-contenedor">
+            <span class="estrellas">⭐⭐⭐⭐⭐</span>
+            <span id="detalleRating" style="font-weight: 700;">4.9</span>
+            <span class="resumen-reseñas">(18 reseñas en Arequipa)</span>
+          </div>
+          <div class="lista-comentarios">
+            <div class="comentario-item">
+              <div class="comentario-autor">Carlos M. (Cercado)</div>
+              <div class="comentario-texto">"Excelente producto original y llegó rapidísimo a casa."</div>
+            </div>
+            <div class="comentario-item">
+              <div class="comentario-autor">Lucía P. (Yanahuara)</div>
+              <div class="comentario-texto">"Muy buena atención, sellado y con garantía local."</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="detalle-especificaciones">
+          <h4>Especificaciones clave:</h4>
+          <ul>
+            <li>✅ Producto 100% original con garantía local.</li>
+            <li>📦 Envío rápido en Arequipa y provincias.</li>
+            <li>🛡️ Garantía oficial de Xiaomi.</li>
+          </ul>
+        </div>
+
+        <button type="button" class="btn btn-carrito" id="detalleBtnAgregar">Agregar al Carrito 🛒</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DE AUTENTICACIÓN (LOGIN / REGISTRO) -->
+<div class="modal-overlay" id="modalAuth">
+  <div class="modal-auth-contenido">
+    <button type="button" class="cerrar-modal" id="cerrarAuth">&times;</button>
+    
+    <!-- Pestañas para alternar entre Login y Registro -->
+    <div class="auth-tabs">
+      <button type="button" class="auth-tab activo" id="tabLogin">Iniciar Sesión</button>
+      <button type="button" class="auth-tab" id="tabRegistro">Registrarse</button>
+    </div>
+
+    <!-- FORMULARIO DE LOGIN -->
+    <form id="formLogin" class="auth-form activo">
+      <h3>¡Bienvenido a Mi Store Arequipa! 👋</h3>
+      <div class="campo-form">
+        <label for="loginEmail">Correo Electrónico:</label>
+        <input type="email" id="loginEmail" placeholder="ejemplo@gmail.com" required>
+      </div>
+      <div class="campo-form">
+        <label for="loginPassword">Contraseña:</label>
+        <input type="password" id="loginPassword" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn btn-carrito" style="width:100%; margin-top:10px;">Ingresar</button>
+    </form>
+
+    <!-- FORMULARIO DE REGISTRO -->
+    <form id="formRegistro" class="auth-form">
+      <h3>Crea tu cuenta cliente 🛒</h3>
+      <div class="campo-form">
+        <label for="regNombre">Nombre Completo:</label>
+        <input type="text" id="regNombre" placeholder="Juan Pérez" required>
+      </div>
+      <div class="campo-form">
+        <label for="regEmail">Correo Electrónico:</label>
+        <input type="email" id="regEmail" placeholder="ejemplo@gmail.com" required>
+      </div>
+      <div class="campo-form">
+        <label for="regPassword">Contraseña:</label>
+        <input type="password" id="regPassword" placeholder="Crea una contraseña" required>
+      </div>
+      <div class="campo-form">
+        <label for="regTelefono">Teléfono (WhatsApp):</label>
+        <input type="tel" id="regTelefono" placeholder="987654321">
+      </div>
+      <div class="campo-form">
+        <label for="regDireccion">Dirección de Envío:</label>
+        <input type="text" id="regDireccion" placeholder="Av. Ejército 123">
+      </div>
+      <div class="campo-form">
+        <label for="regDistrito">Distrito:</label>
+        <select id="regDistrito">
+          <option value="">Selecciona distrito</option>
+          <option value="Cercado">Cercado</option>
+          <option value="Yanahuara">Yanahuara</option>
+          <option value="Cayma">Cayma</option>
+          <option value="JL Bustamante y Rivero">JL Bustamante y Rivero</option>
+          <option value="Paucarpata">Paucarpata</option>
+          <option value="Sachaca">Sachaca</option>
+          <option value="Cerro Colorado">Cerro Colorado</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-carrito" style="width:100%; margin-top:10px;">Registrarme</button>
+    </form>
+
+  </div>
+</div>
+
+<!-- Contenedor de notificaciones Toast -->
+<div id="toastContenedor"></div>
+
+<!-- Script Principal -->
+<script type="module" src="js/app.js"></script>
+<script src="js/chatbot-widget.js" defer></script><script src="js/analitica.js" defer></script><script src="js/comparador.js" defer></script>
+
+</body>
+</html>

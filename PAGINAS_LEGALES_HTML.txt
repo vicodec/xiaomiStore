@@ -1,0 +1,11 @@
+PAGINAS LEGALES ESTATICAS
+
+Se agregaron estas páginas HTML para visualización en GitHub Pages u otro hosting estático:
+- politica-privacidad.html
+- terminos-servicio.html
+- seguridad.html
+
+Las versiones PHP originales se mantienen para el funcionamiento con XAMPP.
+GitHub Pages no ejecuta PHP: estas páginas HTML son informativas/visuales y no sustituyen el backend ni hacen verificaciones técnicas de seguridad.
+La página seguridad.html explica prácticas y recomendaciones; no es una certificación ni una herramienta automática de auditoría.
+Antes de publicar, revisa que el contenido describa las medidas que realmente implementaste y añade tus datos de contacto reales.

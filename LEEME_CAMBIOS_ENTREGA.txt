@@ -1,0 +1,58 @@
+MI STORE AREQUIPA - ENTREGA: GESTION DE PRODUCTOS Y CIERRE DE SESION
+====================================================================
+
+FUNCIONALIDADES AGREGADAS
+1. Panel admin > Gestionar productos:
+   - Crear productos.
+   - Editar nombre, descripción, categoría, precio y stock.
+   - Subir imágenes JPG, PNG o WEBP de hasta 4 MB.
+   - Activar/desactivar productos.
+   - Registrar movimientos de inventario cuando se crea o ajusta stock.
+   - Desactivar es una baja lógica: no borra registros históricos de pedidos.
+2. El catálogo de la tienda carga productos activos desde MySQL.
+   - Los productos nuevos y cambios de precio, descripción, stock e imagen se reflejan en la tienda.
+   - Si la API o MySQL no responde, el HTML original queda como respaldo.
+3. Cierre de sesión:
+   - La sesión PHP se destruye en servidor.
+   - Si se accede desde el panel por enlace normal, vuelve a la tienda.
+   - Desde el botón de usuario se usa fetch y se muestra confirmación sin imprimir JSON en pantalla.
+
+ARCHIVOS NUEVOS
+- admin/productos.php
+- backend/admin_productos.php
+- backend/verificar_admin.php
+- js/controllers/catalogo-db.controller.js
+- database/migracion_gestion_productos.sql
+- uploads/productos/.htaccess
+
+ARCHIVOS MODIFICADOS
+- admin/index.php
+- backend/logout.php
+- js/controllers/auth.controller.js
+- js/app.js
+- INSTRUCCIONES_INSTALACION.txt
+
+INSTALACION / ACTUALIZACION
+1. Haz una copia de seguridad de tu carpeta xiaomiStore y de la base de datos.
+2. Descomprime el proyecto y reemplaza la carpeta xiaomiStore anterior con la nueva; conserva una copia por seguridad.
+3. Si ya importaste mi_store_arequipa.sql y la tabla movimientos_inventario existe, no necesitas importar la migración.
+4. Si la base de datos ya existía y NO tiene movimientos_inventario, importa database/migracion_gestion_productos.sql desde phpMyAdmin.
+5. Asegúrate de que Apache y MySQL estén iniciados.
+6. Abre http://localhost/xiaomiStore/admin/ e inicia sesión con tu cuenta admin.
+7. Pulsa Gestionar productos o abre http://localhost/xiaomiStore/admin/productos.php.
+
+IMPORTANTE
+- La tabla productos debe tener: id, nombre, descripcion, precio, stock, imagen, categoria y activo.
+- El administrador debe tener usuarios.rol = 'admin'.
+- Las imágenes se almacenan en uploads/productos/. Verifica que Apache tenga permiso de escritura en esa carpeta.
+- El cierre de sesión no cambia las credenciales ni el mecanismo de login.
+- Los pagos Yape/Plin y transferencias no se verifican automáticamente; esta entrega no implementa pasarela de pagos.
+
+
+INTEGRACION COMPLETA DE CUENTA
+- Se agregó sincronización del carrito y favoritos con MySQL por usuario autenticado.
+- Se agregaron backend/cuenta_datos.php y backend/sincronizar_cuenta.php.
+- Se agregó database/migracion_carrito_favoritos.sql; debe ejecutarse una sola vez en la base existente.
+- La sesión PHP es la fuente de verdad para el estado de inicio/cierre de sesión.
+- Los artículos locales del navegador se fusionan con los datos de la cuenta al iniciar sesión.
+- El encabezado muestra el saludo del cliente y el checkout completa datos de envío disponibles en su perfil.

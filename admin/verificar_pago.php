@@ -1,0 +1,2 @@
+<?php
+session_start();if(empty($_SESSION['usuario_id'])||($_SESSION['usuario_rol']??'')!=='admin'){http_response_code(403);exit('No autorizado');}require_once __DIR__.'/../backend/conexion.php';$id=(int)($_POST['id']??0);if($id>0){$q=$pdo->prepare('UPDATE pedidos SET pago_verificado=1,pago_verificado_en=NOW() WHERE id=? AND comprobante_pago IS NOT NULL');$q->execute([$id]);}header('Location: pedidos.php');
